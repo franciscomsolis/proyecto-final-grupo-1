@@ -1,0 +1,16 @@
+{% extends 'blog_app/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Artículos Recientes</h1>
+
+<!-- Enlaces para ordenar -->
+<a href="?orden=fecha">Ordenar por fecha</a> | 
+<a href="?orden=alfabetico">Ordenar alfabéticamente</a>
+
+<ul>
+    {% for articulo in articulos %}
+    <li><a href="#">{{ articulo.titulo }}</a> - {{ articulo.fecha_publicacion }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+

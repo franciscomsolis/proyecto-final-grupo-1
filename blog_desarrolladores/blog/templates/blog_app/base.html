@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Blog para Desarrolladores{% endblock %}</title>
+    {% load static %}  <!-- Asegúrate de cargar las etiquetas de archivos estáticos -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <!-- Cabecera -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="{% url 'inicio' %}">Blog para Desarrolladores</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'categorias' %}">Categorías</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'acerca_de' %}">Acerca de</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <span class="navbar-text">Hola, {{ user.username }} | <a href="{% url 'logout' %}">Cerrar sesión</a></span>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'registro' %}">Registrarse</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido Principal -->
+    <div class="container mt-4">
+        {% block content %}
+        <h2>5 Herramientas Esenciales para Desarrolladores</h2>
+        <p>Somos el grupo 1 de la comisión 7, y presentamos esta página web desarrollada con Django, enfocada en herramientas y recursos para desarrolladores web. A continuación, te mostramos cinco de las herramientas más importantes y utilizadas por desarrolladores:</p>
+        
+        <ul class="list-unstyled">
+            <li class="mb-4">
+                <strong>Visual Studio Code</strong>: Un editor de código fuente que proporciona potentes herramientas de depuración, integración de control de versiones y muchas extensiones.
+                <br><img src="https://code.visualstudio.com/assets/docs/setup/windows/overview.png" alt="Visual Studio Code" style="width: 200px;">
+            </li>
+            <li class="mb-4">
+                <strong>Git</strong>: Un sistema de control de versiones que permite rastrear cambios en el código, facilitando la colaboración y el trabajo en equipo.
+                <br><img src="https://git-scm.com/images/logos/downloads/Git-Logo-Black.png" alt="Git" style="width: 200px;">
+            </li>
+            <li class="mb-4">
+                <strong>Node.js</strong>: Un entorno de ejecución para JavaScript en el servidor que permite construir aplicaciones de red escalables.
+                <br><img src="https://nodejs.org/static/images/logo.svg" alt="Node.js" style="width: 200px;">
+            </li>
+            <li class="mb-4">
+                <strong>Postman</strong>: Una herramienta para desarrollar y probar APIs que permite hacer solicitudes HTTP de manera sencilla.
+                <br><img src="https://www.postman.com/assets/postman-logo-2x.png" alt="Postman" style="width: 200px;">
+            </li>
+            <li class="mb-4">
+                <strong>Docker</strong>: Una plataforma para desarrollar, enviar y ejecutar aplicaciones en contenedores, facilitando la gestión de entornos.
+                <br><img src="https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png" alt="Docker" style="width: 200px;">
+            </li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <!-- Pie de página -->
+    <footer class="footer bg-dark text-white mt-5">
+        <div class="container text-center py-3">
+            <p>&copy; 2024 Blog para Desarrolladores - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+/* styles */
+/* styles.css en static/css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.tools-section ul, .related-articles ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tools-section li, .related-articles li {
+    margin-bottom: 10px;
+}
+
+.tool-img {
+    width: 30px;
+    margin-left: 10px;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+}
+
+.related-articles a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.related-articles a:hover {
+    text-decoration: underline;
+}
