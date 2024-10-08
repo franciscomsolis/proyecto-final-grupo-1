@@ -1,12 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Blog para Desarrolladores{% endblock %}</title>
-    {% load static %}  <!-- Asegúrate de cargar las etiquetas de archivos estáticos -->
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <!-- Cabecera -->
@@ -56,7 +58,7 @@
         <ul class="list-unstyled">
             <li class="mb-4">
                 <strong>Visual Studio Code</strong>: Un editor de código fuente que proporciona potentes herramientas de depuración, integración de control de versiones y muchas extensiones.
-                <br><img src="https://code.visualstudio.com/assets/docs/setup/windows/overview.png" alt="Visual Studio Code" style="width: 200px;">
+                <br><img src="https://cdn.shopify.com/s/files/1/1040/8806/files/thumbnail_visualstudiocode_01.png?resize=1024%2C576&ssl=1" alt="Visual Studio Code" style="width: 200px;">
             </li>
             <li class="mb-4">
                 <strong>Git</strong>: Un sistema de control de versiones que permite rastrear cambios en el código, facilitando la colaboración y el trabajo en equipo.
@@ -68,7 +70,7 @@
             </li>
             <li class="mb-4">
                 <strong>Postman</strong>: Una herramienta para desarrollar y probar APIs que permite hacer solicitudes HTTP de manera sencilla.
-                <br><img src="https://www.postman.com/assets/postman-logo-2x.png" alt="Postman" style="width: 200px;">
+                <br><img src="https://cdn-1.webcatalog.io/catalog/postman/postman-icon-filled-256.webp?v=1714775526158" alt="Postman" style="width: 200px;">
             </li>
             <li class="mb-4">
                 <strong>Docker</strong>: Una plataforma para desarrollar, enviar y ejecutar aplicaciones en contenedores, facilitando la gestión de entornos.
