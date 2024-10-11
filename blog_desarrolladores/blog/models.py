@@ -18,8 +18,14 @@ class Articulo(models.Model):
     autor = models.ForeignKey(User, on_delete=models.CASCADE)  # Relación con usuario
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, null=True)  # Categoría del artículo
     imagen = models.ImageField(upload_to='articulos/', blank=True, null=True)
-    def __str__(self):
-        return self.titulo
+
+    class Meta:
+        permissions = [
+            ("can_edit_article", "Puede editar artículo"),
+            ("can_delete_article", "Puede eliminar artículo"),
+        ]
+def __str__(self):
+        return self.titulo        
 
 # Modelo de Comentarios
 class Comentario(models.Model):

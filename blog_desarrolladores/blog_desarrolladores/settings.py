@@ -14,7 +14,9 @@ from pathlib import Path
 
 
 
-
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Backend por defecto de Django
+]
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,12 +34,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Redirige tras el inicio de sesión
-LOGIN_REDIRECT_URL = '/'
-
-# Redirige tras el cierre de sesión
-LOGOUT_REDIRECT_URL = '/'
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',

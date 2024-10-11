@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Articulo, Categoria, Comentario, Contacto
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from .forms import ArticuloForm, ComentarioForm, ContactoForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -63,10 +63,13 @@ def crear_articulo(request):
 
 
 
-#@login_required
-#@user_passes_test(es_colaborador)
+@login_required
+@permission_required('blog_app.can_edit_article', raise_exception=True)
 def editar_articulo(request, articulo_id):
     articulo = get_object_or_404(Articulo, id=articulo_id)
+    if not es_colaborador(request.user):
+        return redirect('inicio')  # O alguna otra página de acceso denegado
+
     if request.method == 'POST':
         form = ArticuloForm(request.POST, instance=articulo)
         if form.is_valid():
@@ -79,15 +82,15 @@ def editar_articulo(request, articulo_id):
 
 
 
-#@login_required
-#@user_passes_test(es_colaborador)
+@login_required
+@permission_required('blog_app.can_delete_article', raise_exception=True)
 def eliminar_articulo(request, articulo_id):
     articulo = get_object_or_404(Articulo, id=articulo_id)
-    if request.method == 'POST':
-        articulo.delete()
-        return redirect('inicio')  # Redirige a la página de inicio tras la eliminación
+    if not es_colaborador(request.user):
+        return redirect('inicio')  # O alguna otra página de acceso denegado
 
-    return render(request, 'blog_app/eliminar_articulo.html', {'articulo': articulo})
+    articulo.delete()
+    return redirect('lista_articulos')
 
 
 
