@@ -7,4 +7,5 @@
     {{ form.as_p }}
     <button type="submit">Guardar cambios</button>
 </form>
+<a href="{% url 'editar_articulo' articulo.id %}">Editar</a>
 {% endblock %}

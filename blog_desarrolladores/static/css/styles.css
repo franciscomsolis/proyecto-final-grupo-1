@@ -4,8 +4,9 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-}
+    
 
+}
 .tools-section ul, .related-articles ul {
     list-style-type: none;
     padding: 0;

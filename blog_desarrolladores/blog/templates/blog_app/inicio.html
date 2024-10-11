@@ -1,16 +1,24 @@
 {% extends 'blog_app/base.html' %}
 {% load static %}
 {% block content %}
-<h1>Artículos Recientes</h1>
 
-<!-- Enlaces para ordenar -->
 <a href="?orden=fecha">Ordenar por fecha</a> | 
 <a href="?orden=alfabetico">Ordenar alfabéticamente</a>
 
+
+<div class="container mt-4">
+    
+    <h2>Bienvenidos!</h2>
+    <img src="https://dinahosting.com/blog/upload/2019/08/programaci%C3%B3n-mitos.jpg" alt="Portada Herramientas" class="img-fluid">
+    
+</div>
+
 <ul>
     {% for articulo in articulos %}
-    <li><a href="#">{{ articulo.titulo }}</a> - {{ articulo.fecha_publicacion }}</li>
+    
+    <li><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.titulo }}</a> - {{ articulo.fecha_publicacion }}</li>
     {% endfor %}
+  
 </ul>
 {% endblock %}
 

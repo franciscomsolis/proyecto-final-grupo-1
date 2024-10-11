@@ -1,0 +1,21 @@
+{% extends 'blog_app/base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h2>Eliminar Comentario</h2>
+    <p>¿Estás seguro de que deseas eliminar este comentario?</p>
+
+    <div class="card mt-3">
+      <div class="card-body">
+        <p>{{ comentario.texto }}</p>
+        <p><small>Por {{ comentario.autor }} el {{ comentario.fecha_publicacion }}</small></p>
+      </div>
+    </div>
+
+    <form method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger mt-3">Eliminar</button>
+      <a href="{% url 'detalle_articulo' comentario.articulo.id %}" class="btn btn-secondary mt-3">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}

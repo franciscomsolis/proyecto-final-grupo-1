@@ -3,9 +3,47 @@
 {% block content %}
 <h1>{{ articulo.titulo }}</h1>
 <p>{{ articulo.contenido }}</p>
+
+{% if articulo.imagen %}
+<img src="{{ articulo.imagen.url }}" alt="{{ articulo.titulo }}" style="max-width:100%;">
+{% endif %}
+
 <p>Publicado el: {{ articulo.fecha_publicacion }}</p>
 <p>Última actualización: {{ articulo.ultima_actualizacion }}</p>
 
-<a href="{% url 'editar_articulo' articulo.id %}">Editar</a> |
-<a href="{% url 'eliminar_articulo' articulo.id %}">Eliminar</a>
+<!-- Mostrar opciones de editar/eliminar solo si el usuario está autenticado -->
+{% if user.is_authenticated %}
+    <a href="{% url 'editar_articulo' articulo.id %}">Editar</a> |
+    <a href="{% url 'eliminar_articulo' articulo.id %}">Eliminar</a>
+{% endif %}
+
+<hr>
+
+<!-- Mostrar comentarios -->
+<h3>Comentarios</h3>
+<ul>
+    {% for comentario in articulo.comentarios.all %}
+        <li>
+            <p>{{ comentario.contenido }} - por {{ comentario.autor }}</p>
+            {% if comentario.autor == user or user.is_staff %}
+                <a href="{% url 'editar_comentario' comentario.id %}">Editar</a> |
+                <a href="{% url 'eliminar_comentario' comentario.id %}">Eliminar</a>
+            {% endif %}
+        </li>
+    {% empty %}
+        <p>No hay comentarios aún. ¡Sé el primero en comentar!</p>
+    {% endfor %}
+</ul>
+
+<!-- Formulario para agregar un comentario solo si el usuario está autenticado -->
+{% if user.is_authenticated %}
+    <h4>Agregar un comentario</h4>
+    <form method="POST" action="{% url 'agregar_comentario' articulo.id %}">
+        {% csrf_token %}
+        <textarea name="contenido" placeholder="Escribe tu comentario aquí..." required></textarea><br>
+        <button type="submit">Comentar</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Inicia sesión</a> para agregar un comentario.</p>
+{% endif %}
 {% endblock %}

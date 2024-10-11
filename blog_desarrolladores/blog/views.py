@@ -6,6 +6,7 @@ from .forms import ArticuloForm, ComentarioForm, ContactoForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import send_mail 
+from django.contrib.auth.models import Group
 # Vista de la página de inicio
 def inicio(request):
     orden = request.GET.get('orden', 'fecha')  # Por defecto ordena por fecha
@@ -43,7 +44,8 @@ def detalle_articulo(request, articulo_id):
 
 # Vista para crear un artículo (solo Colaboradores)
 def es_colaborador(user):
-    return user.groups.filter(name='Colaboradores').exists()
+    return user.is_authenticated and user.groups.filter(name='Colaboradores').exists()
+
 
 @login_required
 @user_passes_test(es_colaborador)
@@ -60,28 +62,34 @@ def crear_articulo(request):
     return render(request, 'blog_app/crear_articulo.html', {'form': form})
 
 
-# Vista para editar un artículo (solo Colaboradores)
-@user_passes_test(es_colaborador)
+
+#@login_required
+#@user_passes_test(es_colaborador)
 def editar_articulo(request, articulo_id):
     articulo = get_object_or_404(Articulo, id=articulo_id)
     if request.method == 'POST':
-        form = ArticuloForm(request.POST, request.FILES, instance=articulo)
+        form = ArticuloForm(request.POST, instance=articulo)
         if form.is_valid():
             form.save()
             return redirect('detalle_articulo', articulo_id=articulo.id)
     else:
         form = ArticuloForm(instance=articulo)
-    return render(request, 'blog_app/editar_articulo.html', {'form': form})
+
+    return render(request, 'blog_app/editar_articulo.html', {'form': form, 'articulo': articulo})
 
 
-# Vista para eliminar un artículo (solo Colaboradores)
-@user_passes_test(es_colaborador)
+
+#@login_required
+#@user_passes_test(es_colaborador)
 def eliminar_articulo(request, articulo_id):
     articulo = get_object_or_404(Articulo, id=articulo_id)
     if request.method == 'POST':
         articulo.delete()
-        return redirect('inicio')
+        return redirect('inicio')  # Redirige a la página de inicio tras la eliminación
+
     return render(request, 'blog_app/eliminar_articulo.html', {'articulo': articulo})
+
+
 
 # Agregar comentario a un artículo
 @login_required

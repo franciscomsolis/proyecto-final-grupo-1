@@ -1,0 +1,22 @@
+{% extends 'blog_app/base.html' %}
+
+{% block content %}
+  <h1>Artículos en la categoría: {{ categoria.nombre }}</h1>
+
+  {% if articulos %}
+    <ul>
+      {% for articulo in articulos %}
+        <li>
+          <h2><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.titulo }}</a></h2>
+          <p>{{ articulo.resumen }}</p>
+          <p>Publicado el: {{ articulo.fecha_publicacion|date:"d M Y" }}</p>
+          <p>Categoría: {{ articulo.categoria.nombre }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay artículos en esta categoría aún.</p>
+  {% endif %}
+  
+  <a href="{% url 'categorias' %}">Volver a las categorías</a>
+{% endblock %}

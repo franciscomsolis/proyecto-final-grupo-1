@@ -7,7 +7,6 @@
     <title>{% block title %}Blog para Desarrolladores{% endblock %}</title>
     
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
@@ -32,17 +31,24 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contacto' %}">Contacto</a>
                     </li>
+
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <span class="navbar-text">Hola, {{ user.username }} | <a href="{% url 'logout' %}">Cerrar sesión</a></span>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Hola, {{ user.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link btn btn-link" style="text-decoration: none; color: white;">Cerrar sesión</button>
+                        </form>
+                    </li>
                     {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'registro' %}">Registrarse</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registro' %}">Registrarse</a>
+                    </li>
                     {% endif %}
                 </ul>
             </div>
@@ -52,31 +58,8 @@
     <!-- Contenido Principal -->
     <div class="container mt-4">
         {% block content %}
-        <h2>5 Herramientas Esenciales para Desarrolladores</h2>
-        <p>Somos el grupo 1 de la comisión 7, y presentamos esta página web desarrollada con Django, enfocada en herramientas y recursos para desarrolladores web. A continuación, te mostramos cinco de las herramientas más importantes y utilizadas por desarrolladores:</p>
-        
-        <ul class="list-unstyled">
-            <li class="mb-4">
-                <strong>Visual Studio Code</strong>: Un editor de código fuente que proporciona potentes herramientas de depuración, integración de control de versiones y muchas extensiones.
-                <br><img src="https://cdn.shopify.com/s/files/1/1040/8806/files/thumbnail_visualstudiocode_01.png?resize=1024%2C576&ssl=1" alt="Visual Studio Code" style="width: 200px;">
-            </li>
-            <li class="mb-4">
-                <strong>Git</strong>: Un sistema de control de versiones que permite rastrear cambios en el código, facilitando la colaboración y el trabajo en equipo.
-                <br><img src="https://git-scm.com/images/logos/downloads/Git-Logo-Black.png" alt="Git" style="width: 200px;">
-            </li>
-            <li class="mb-4">
-                <strong>Node.js</strong>: Un entorno de ejecución para JavaScript en el servidor que permite construir aplicaciones de red escalables.
-                <br><img src="https://nodejs.org/static/images/logo.svg" alt="Node.js" style="width: 200px;">
-            </li>
-            <li class="mb-4">
-                <strong>Postman</strong>: Una herramienta para desarrollar y probar APIs que permite hacer solicitudes HTTP de manera sencilla.
-                <br><img src="https://cdn-1.webcatalog.io/catalog/postman/postman-icon-filled-256.webp?v=1714775526158" alt="Postman" style="width: 200px;">
-            </li>
-            <li class="mb-4">
-                <strong>Docker</strong>: Una plataforma para desarrollar, enviar y ejecutar aplicaciones en contenedores, facilitando la gestión de entornos.
-                <br><img src="https://www.docker.com/wp-content/uploads/2022/03/horizontal-logo-monochromatic-white.png" alt="Docker" style="width: 200px;">
-            </li>
-        </ul>
+        <h2>Portada de Herramientas Esenciales para Desarrolladores</h2>
+        <img src="https://www.tresd.net/wp-content/uploads/2021/09/herramientas-desarrollo-web.png" alt="Portada Herramientas" class="img-fluid">
         {% endblock %}
     </div>
 
@@ -93,3 +76,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+
