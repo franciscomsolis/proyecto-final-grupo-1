@@ -85,8 +85,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'proyectodjango',  # Asegúrate de usar el nombre correcto
-        'USER': 'pachidjango1',  # Usuario que acabas de crear
-        'PASSWORD': 'pachidjango',  # La contraseña que elegiste
+        'USER': 'root',  # Usuario que acabas de crear
+        'PASSWORD': 'root',  # La contraseña que elegiste
         'HOST': 'localhost',
         'PORT': '3306',
     }
