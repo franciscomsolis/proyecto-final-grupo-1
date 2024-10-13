@@ -23,6 +23,7 @@ class Articulo(models.Model):
         permissions = [
             ("can_edit_article", "Puede editar artículo"),
             ("can_delete_article", "Puede eliminar artículo"),
+            ("can_create_article", "Puede crear articulo")
         ]
 def __str__(self):
         return self.titulo        
@@ -43,4 +44,4 @@ class Contacto(models.Model):
     mensaje = models.TextField()
 
     def __str__(self):
-        return self.nombre   
+        return self.nombre

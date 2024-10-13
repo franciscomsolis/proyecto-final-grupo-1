@@ -16,6 +16,13 @@
 <ul>
     {% for articulo in articulos %}
     
+    
+    <li><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.titulo }}</a> - {{ articulo.fecha_publicacion }}</li>
+    {% endfor %}
+  
+</ul>
+{% endblock %}
+
     <li><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.titulo }}</a> - {{ articulo.fecha_publicacion }}</li>
     {% endfor %}
   

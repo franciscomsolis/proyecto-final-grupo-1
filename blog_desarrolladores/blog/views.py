@@ -42,23 +42,23 @@ def detalle_articulo(request, articulo_id):
     articulo = get_object_or_404(Articulo, id=articulo_id)
     return render(request, 'blog_app/detalle_articulo.html', {'articulo': articulo})
 
-# Vista para crear un artículo (solo Colaboradores)
-def es_colaborador(user):
-    return user.is_authenticated and user.groups.filter(name='Colaboradores').exists()
+
+
 
 
 @login_required
-@user_passes_test(es_colaborador)
+@permission_required('blog_app.can_create_article', raise_exception=True)
 def crear_articulo(request):
     if request.method == 'POST':
-        form = ArticuloForm(request.POST, request.FILES)  # request.FILES para manejar archivos
+        form = ArticuloForm(request.POST, request.FILES)  # Agregar request.FILES
         if form.is_valid():
-            nuevo_articulo = form.save(commit=False)
-            nuevo_articulo.autor = request.user
-            nuevo_articulo.save()
-            return redirect('detalle_articulo', articulo_id=nuevo_articulo.id)
+            articulo = form.save(commit=False)
+            articulo.autor = request.user  # Asigna el autor del artículo
+            articulo.save()
+            return redirect('detalle_articulo', articulo_id=articulo.id)
     else:
         form = ArticuloForm()
+
     return render(request, 'blog_app/crear_articulo.html', {'form': form})
 
 
@@ -67,8 +67,7 @@ def crear_articulo(request):
 @permission_required('blog_app.can_edit_article', raise_exception=True)
 def editar_articulo(request, articulo_id):
     articulo = get_object_or_404(Articulo, id=articulo_id)
-    if not es_colaborador(request.user):
-        return redirect('inicio')  # O alguna otra página de acceso denegado
+      # O alguna otra página de acceso denegado
 
     if request.method == 'POST':
         form = ArticuloForm(request.POST, instance=articulo)
@@ -86,12 +85,17 @@ def editar_articulo(request, articulo_id):
 @permission_required('blog_app.can_delete_article', raise_exception=True)
 def eliminar_articulo(request, articulo_id):
     articulo = get_object_or_404(Articulo, id=articulo_id)
-    if not es_colaborador(request.user):
-        return redirect('inicio')  # O alguna otra página de acceso denegado
+      # O alguna otra página de acceso denegado
 
-    articulo.delete()
-    return redirect('lista_articulos')
+    if request.method == 'POST':
+        form = ArticuloForm(request.POST, instance=articulo)
+        if form.is_valid():
+            form.save()
+            return redirect('detalle_articulo', articulo_id=articulo.id)
+    else:
+        form = ArticuloForm(instance=articulo)
 
+    return render(request, 'blog_app/eliminar_articulo.html', {'form': form, 'articulo': articulo})
 
 
 # Agregar comentario a un artículo
@@ -173,4 +177,3 @@ def contacto(request):
 # views.py
 def contacto_exito(request):
     return render(request, 'contacto_exito.html')
-
