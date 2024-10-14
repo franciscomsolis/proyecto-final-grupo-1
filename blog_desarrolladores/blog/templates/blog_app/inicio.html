@@ -1,31 +1,34 @@
 {% extends 'blog_app/base.html' %}
 {% load static %}
+
 {% block content %}
-
-<a href="?orden=fecha">Ordenar por fecha</a> | 
-<a href="?orden=alfabetico">Ordenar alfabéticamente</a>
-
-
 <div class="container mt-4">
-    
     <h2>Bienvenidos!</h2>
-    <img src="https://dinahosting.com/blog/upload/2019/08/programaci%C3%B3n-mitos.jpg" alt="Portada Herramientas" class="img-fluid">
+    <img src="https://dinahosting.com/blog/upload/2019/08/programaci%C3%B3n-mitos.jpg" alt="Portada Herramientas" class="img-fluid mb-4">
+
+    <!-- Enlaces para ordenar los artículos -->
+    <div class="d-flex justify-content-start mb-3">
+        <a href="?orden=fecha" class="btn btn-secondary me-2">Ordenar por fecha</a>
+        <a href="?orden=alfabetico" class="btn btn-secondary">Ordenar alfabéticamente</a>
+    </div>
+
+    <!-- Botón para crear artículo, visible solo para usuarios colaboradores -->
+   
+        <div class="mb-3">
+            <a href="{% url 'crear_articulo' %}" class="btn btn-primary">Crear nuevo artículo</a>
+        </div>
     
 </div>
 
-<ul>
+<!-- Listado de artículos -->
+<ul class="list-unstyled">
     {% for articulo in articulos %}
-    
-    
-    <li><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.titulo }}</a> - {{ articulo.fecha_publicacion }}</li>
+        <li class="mb-3">
+            <a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.titulo }}</a> - {{ articulo.fecha_publicacion }}
+        </li>
+    {% empty %}
+        <p>No hay artículos disponibles.</p>
     {% endfor %}
-  
-</ul>
-{% endblock %}
-
-    <li><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.titulo }}</a> - {{ articulo.fecha_publicacion }}</li>
-    {% endfor %}
-  
 </ul>
 {% endblock %}
 

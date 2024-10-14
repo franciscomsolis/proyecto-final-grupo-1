@@ -1,7 +1,7 @@
 {% extends 'blog_app/base.html' %}
 
 {% block content %}
-<h1>Crear Artículo</h1>
+<h1>Crear Articulo</h1>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
@@ -10,29 +10,3 @@
 {% endblock %}
 articulo.html:
 <!-- blog_app/templates/blog_app/articulos.html -->
-{% extends 'blog_app/base.html' %}
-
-{% block content %}
-  <h1>Artículos</h1>
-  <!-- Botones para filtrar -->
-  <div>
-    <a href="?orden=fecha_asc">Ordenar por fecha (ascendente)</a>
-    <a href="?orden=fecha_desc">Ordenar por fecha (descendente)</a>
-    <a href="?orden=alf_asc">Ordenar alfabéticamente (ascendente)</a>
-    <a href="?orden=alf_desc">Ordenar alfabéticamente (descendente)</a>
-  </div>
-
-  <!-- Listar artículos -->
-  <ul>
-    {% for articulo in articulos %}
-      <li>
-        <h2>{{ articulo.titulo }}</h2>
-        <p>{{ articulo.fecha_publicacion }}</p>
-        <p>{{ articulo.contenido|truncatewords:20 }}</p>
-        <a href="{% url 'detalle_articulo' articulo.id %}">Leer más</a>
-        
-        
-      </li>
-    {% endfor %}
-  </ul>
-{% endblock %}
